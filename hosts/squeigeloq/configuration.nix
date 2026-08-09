@@ -54,6 +54,15 @@
  
   nixpkgs.config.allowUnfree = true;
 
+  console = {
+    font = "latarcyrheb-sun32"; # A large, clean 32pt monospace font
+   };
+
+  # Limit the number of generations stored in /boot to prevent it from ever filling up
+  boot.loader.systemd-boot.configurationLimit = 12;
+
+
+
   # programs.mtr.enable = true;
   # programs.gnupg.agent = {
   #   enable = true;

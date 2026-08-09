@@ -13,6 +13,11 @@
       url = "github:herdrdev/herdr";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
@@ -20,7 +25,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, herdr-src, ... } @inputs:
+  outputs = { self, nixpkgs, home-manager, herdr-src, lanzaboote, ... } @inputs:
   let
     system = "x86_64-linux";
     # Pull the pre-built package directly from herdr's flake
@@ -36,6 +41,7 @@
         ./modules/hardware/squeigeloq.nix
         ./modules/hardware/nvidialoq.nix
         ./modules/hardware/audio.nix
+        ./modules/hardware/lanzaboote.nix
         {
           home-manager = {
             useGlobalPkgs = true;
