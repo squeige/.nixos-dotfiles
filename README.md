@@ -2,6 +2,7 @@
 
 
 ## Currently this is my structure as of 08/09
+```
 [luigi@squeigeloq:~/.nixos-dotfiles]$ tree
 .
 ├── flake.lock
@@ -22,3 +23,4 @@
 └── README.md
 
 6 directories, 11 files
+```
