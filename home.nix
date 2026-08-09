@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, herdr, ... }:
 
 {
     home.username = "luigi";
@@ -17,9 +17,11 @@
     
     
     home.packages = with pkgs; [
-        pkgs.wezterm
-        pkgs.keepassxc
-        pkgs.neovim
+        wezterm
+        keepassxc
+        neovim
+        opencode
+        herdr
         inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
   }
