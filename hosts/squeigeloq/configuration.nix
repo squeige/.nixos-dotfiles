@@ -41,12 +41,14 @@
     wget
     curl
     git
-    wezterm
+    tree
   ];
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
   ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+ 
+  nixpkgs.config.allowUnfree = true;
 
   # programs.mtr.enable = true;
   # programs.gnupg.agent = {
