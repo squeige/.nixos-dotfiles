@@ -14,9 +14,19 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
+
+    # Enable WirePlumber state restoration
+    wireplumber.extraConfig = {
+      "10-restore-state" = {
+        "wireplumber.settings" = {
+          "state.restore-props" = true;
+          "state.restore-target" = true;
+        };
+      };
+    };
   };
 
-  # Useful audio utilities (volume control, mixer GUI/CLI)
+  # Useful audio utilities
   environment.systemPackages = with pkgs; [
     pavucontrol # Graphical volume control mixer
     pamixer     # CLI volume control

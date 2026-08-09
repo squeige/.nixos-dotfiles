@@ -37,6 +37,12 @@
       options = [ "subvol=@log" ];
     };
 
+  fileSystems."/var/lib/incus" = {
+    device = "/dev/disk/by-uuid/8bfd4933-28a1-4f54-8b5f-f0b5bea8af85";
+    fsType = "btrfs";
+    options = [ "subvol=@incus" "compress=zstd" "noatime" ];
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/460bd9d4-638a-4c9f-ade5-4ffa74a4d4fb"; }
     ];

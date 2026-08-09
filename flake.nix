@@ -41,6 +41,7 @@
         ./modules/hardware/squeigeloq.nix
         ./modules/hardware/nvidialoq.nix
         ./modules/hardware/audio.nix
+	./modules/system/incus.nix
         ./modules/hardware/lanzaboote.nix
         {
           home-manager = {
