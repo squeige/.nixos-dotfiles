@@ -13,7 +13,7 @@
       url = "github:herdrdev/herdr";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     lanzaboote = {
       url = "github:nix-community/lanzaboote/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -25,34 +25,32 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, herdr-src, lanzaboote, ... } @inputs:
+  outputs = { self, nixpkgs, herdr-src, ... }@inputs:
   let
     system = "x86_64-linux";
-    # Pull the pre-built package directly from herdr's flake
     herdr = herdr-src.packages.${system}.default;
   in
   {
-    nixosConfigurations.squeigeloq = nixpkgs.lib.nixosSystem {
-      inherit system;
-      specialArgs = { inherit inputs herdr; };
-      modules = [
-        home-manager.nixosModules.home-manager
-        ./hosts/squeigeloq/configuration.nix
-        ./modules/hardware/squeigeloq.nix
-        ./modules/hardware/nvidialoq.nix
-        ./modules/hardware/audio.nix
-	./modules/system/incus.nix
-        ./modules/hardware/lanzaboote.nix
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.luigi = import ./home.nix;
-            backupFileExtension = "backup";
-            extraSpecialArgs = { inherit inputs herdr; };
-          };
-        }
-      ];
+    nixosConfigurations = {
+
+      # Host 1: Laptop
+      squeigeloq = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs herdr; };
+        modules = [
+          ./hosts/squeigeloq/configuration.nix
+        ];
+      };
+
+      # Host 2: Hyper-V VM
+      vm01 = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs herdr; };
+        modules = [
+          ./hosts/vm01/configuration.nix
+        ];
+      };
+
     };
   };
 }

@@ -1,48 +1,75 @@
-
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, herdr, ... }:
 
 {
-  imports =
-    [ 
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
 
-  # Use the systemd-boot EFI boot loader.
+    # Hardware Modules
+    ../../modules/hardware/audio.nix
+    ../../modules/hardware/lanzaboote.nix
+
+    # Import Lenovo Loq specific hardware
+    ./hardware/default.nix
+
+    # System Modules
+    ../../modules/system/incus.nix
+
+    # Home Manager NixOS Module (from flake input)
+    inputs.home-manager.nixosModules.home-manager
+  ];
+    hardware.acpilight.enable = true;
+
+  # Home Manager inline setup
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.luigi = import ../../home.nix;
+    backupFileExtension = "backup";
+    extraSpecialArgs = { inherit inputs herdr; };
+  };
+
+  # Bootloader settings
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  # Use latest kernel.
+  boot.loader.systemd-boot.configurationLimit = 12;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "squeigeloq"; 
+  # Networking
+  networking.hostName = "squeigeloq";
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
+  # Locale & Display
   time.timeZone = "America/Costa_Rica";
   services.xserver = {
     enable = true;
     autoRepeatDelay = 200;
     autoRepeatInterval = 35;
-    windowManager.qtile.enable  = true;
+    windowManager.qtile.enable = true;
   };
   services.displayManager.ly.enable = true;
-  
+
+  # User account
   users.users.luigi = {
-     isNormalUser = true;
-     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-     packages = with pkgs; [
-     ];
-   };
+    isNormalUser = true;
+    extraGroups = [ "wheel" "video" ];
+  };
 
+  # System packages & Fonts
   programs.firefox.enable = true;
-
   environment.systemPackages = with pkgs; [
-    vim 
+    vim
     wget
     curl
     git
     tree
-  ];
+    gcc
+    gnumake
+    tree-sitter
+    ripgrep     # Needed for Telescope live_grep
+    fd          # Optional, speeds up Telescope file searches
+    unzip       # Needed by Mason to unpack language servers
+     ];
+
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     nerd-fonts.fira-code
@@ -50,35 +77,14 @@
     nerd-fonts.meslo-lg
     nerd-fonts.symbols-only
   ];
+
+  # Nix configuration
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
- 
   nixpkgs.config.allowUnfree = true;
 
   console = {
-    font = "latarcyrheb-sun32"; # A large, clean 32pt monospace font
-   };
+    font = "latarcyrheb-sun32";
+  };
 
-  # Limit the number of generations stored in /boot to prevent it from ever filling up
-  boot.loader.systemd-boot.configurationLimit = 12;
-
-
-
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  #system.copySystemConfiguration = true;
-  system.stateVersion = "26.05"; 
+  system.stateVersion = "26.05";
 }
-

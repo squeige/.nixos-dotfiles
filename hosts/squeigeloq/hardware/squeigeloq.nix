@@ -16,9 +16,13 @@
 
   # Ensure native hardware ACPI modules are loaded early
   boot.kernelModules = [ "ideapad_laptop" "lenovo_wmi" ];
+  hardware.acpilight.enable = true;
 
   services.logind.settings = {
     Login = {
+      # Add this line to map power button press to suspend
+      HandlePowerKey = "suspend";
+
       HandleLidSwitch = "suspend-then-hibernate";
       HandleLidSwitchExternalPower = "lock";
       # Inactivity trigger: suspends after 15 minutes of being away
