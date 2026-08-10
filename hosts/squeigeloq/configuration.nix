@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, herdr, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports = [
@@ -29,12 +29,12 @@
     useUserPackages = true;
     users.luigi = import ../../home.nix;
     backupFileExtension = "backup";
-    extraSpecialArgs = { inherit inputs herdr; };
+    extraSpecialArgs = { inherit inputs; };
   };
 
   # Bootloader settings
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # boot.loader.systemd-boot.enable = true; # Managed with lanzaboote
+  # boot.loader.efi.canTouchEfiVariables = true; # Managed with lanzaboote
   boot.loader.systemd-boot.configurationLimit = 12;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 

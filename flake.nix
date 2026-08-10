@@ -1,8 +1,9 @@
 {
-  description = "Initial nixos install squeigeloq";
+  description = "NixOS Flake configuration for squeigeloq and vm01";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-26.05";
+    # Canonical github URL scheme
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
@@ -15,7 +16,8 @@
     };
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/master";
+      # Stable tagged version instead of floating master branch
+      url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -25,18 +27,12 @@
     };
   };
 
-  outputs = { self, nixpkgs, herdr-src, ... }@inputs:
-  let
-    system = "x86_64-linux";
-    herdr = herdr-src.packages.${system}.default;
-  in
-  {
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
     nixosConfigurations = {
 
-      # Host 1: Laptop
+      # Host 1: Laptop (Lenovo LOQ)
       squeigeloq = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = { inherit inputs herdr; };
+        specialArgs = { inherit inputs; };
         modules = [
           ./hosts/squeigeloq/configuration.nix
         ];
@@ -44,8 +40,7 @@
 
       # Host 2: Hyper-V VM
       vm01 = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = { inherit inputs herdr; };
+        specialArgs = { inherit inputs; };
         modules = [
           ./hosts/vm01/configuration.nix
         ];

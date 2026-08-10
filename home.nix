@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, herdr, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
     home.username = "luigi";
@@ -15,13 +15,14 @@
         };
     };
     
+    xdg.configFile."nvim".source = ./config/nvim;
     
     home.packages = with pkgs; [
         wezterm
         keepassxc
         neovim
         opencode
-        herdr
         inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
   }
+
