@@ -7,17 +7,21 @@
     # Hardware Modules
     ../../modules/hardware/audio.nix
     ../../modules/hardware/lanzaboote.nix
+    ../../modules/system/openssh.nix
 
     # Import Lenovo Loq specific hardware
-    ./hardware/default.nix
+    ./hardware
 
     # System Modules
     ../../modules/system/incus.nix
 
     # Home Manager NixOS Module (from flake input)
     inputs.home-manager.nixosModules.home-manager
+    
+    # Import users
+    ../../modules/system/luigi.nix
+
   ];
-    hardware.acpilight.enable = true;
 
   # Home Manager inline setup
   home-manager = {
@@ -46,13 +50,10 @@
     autoRepeatInterval = 35;
     windowManager.qtile.enable = true;
   };
+
   services.displayManager.ly.enable = true;
 
-  # User account
-  users.users.luigi = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "video" ];
-  };
+  mySystem.users.luigi.enable = true;
 
   # System packages & Fonts
   programs.firefox.enable = true;
@@ -78,13 +79,13 @@
     nerd-fonts.symbols-only
   ];
 
-  # Nix configuration
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # Allow unfree, like nvidia.
   nixpkgs.config.allowUnfree = true;
 
   console = {
     font = "latarcyrheb-sun32";
   };
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   system.stateVersion = "26.05";
 }
