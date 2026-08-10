@@ -10,6 +10,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Niri Flake Input
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+      };
+
     herdr-src = {
       url = "github:herdrdev/herdr";
       inputs.nixpkgs.follows = "nixpkgs";

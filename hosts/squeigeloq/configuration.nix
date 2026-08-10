@@ -12,6 +12,8 @@
     # Import Lenovo Loq specific hardware
     ./hardware
 
+    ../../modules/desktops/niri.nix
+
     # System Modules
     ../../modules/system/incus.nix
 
