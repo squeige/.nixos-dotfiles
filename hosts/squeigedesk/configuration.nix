@@ -42,7 +42,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest; 
 
   # Networking 
-  networking.hostName = "squeige"; 
+  networking.hostName = "squeigedesk"; 
   networking.networkmanager.enable = true; 
 
   # Locale & Display # Section comment for time zone and display settings

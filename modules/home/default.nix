@@ -23,7 +23,7 @@
 
         # Editors & dev tools
         neovim
-        opencode
+        inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.opencode
         zed-editor
         tree-sitter
         ripgrep
