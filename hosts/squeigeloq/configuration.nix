@@ -6,16 +6,15 @@
 
     ../../modules/hardware/audio.nix 
     ../../modules/hardware/lanzaboote.nix 
+    ../../modules/system/bluetooth.nix 
     ../../modules/system/openssh.nix 
 
     ./hardware # Import all Lenovo Loq modules
 
-    ../../modules/desktops/niri.nix 
+    ../../modules/desktops
 
     # System Modules 
     ../../modules/system/incus.nix 
-   # ../../modules/desktops/x11.nix
-    ../../modules/desktops/display_ly.nix
 
     # Home Manager NixOS Module (from flake input) 
     inputs.home-manager.nixosModules.home-manager 
@@ -29,7 +28,9 @@
   home-manager = { 
     useGlobalPkgs = true; 
     useUserPackages = true;
-    users.luigi = import ../../home.nix; 
+    users.luigi = { 
+      imports = [ ../../modules/home/default.nix ]; 
+    };
     backupFileExtension = "backup"; 
     extraSpecialArgs = { inherit inputs; }; 
   }; 
@@ -49,30 +50,19 @@
 
   mySystem.users.luigi.enable = true; 
 
+  # Desktop environment (see modules/desktops/)
+  mySystem.desktops = {
+    niri.enable = true;
+    display_ly.enable = true;
+  };
+
   #programs.firefox.enable = true; 
   environment.systemPackages = with pkgs; [
+    # Rescue / essential tools (keep minimal; user apps live in home-manager)
     vim 
     wget
     curl
-    git 
-    tree
-    gcc 
-    gnumake 
-    tree-sitter 
-    ripgrep     
-    fd         
-    unzip
-    bluez
-    bluez-tools
-    zed-editor
   ];
-
-  # Enable Bluetooth hardware service
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-  };
-  services.blueman.enable = true;
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono 

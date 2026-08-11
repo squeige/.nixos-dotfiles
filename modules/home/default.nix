@@ -4,7 +4,7 @@
     home.username = "luigi";
     home.homeDirectory = "/home/luigi";
     home.stateVersion = "26.05";
-    
+
     programs.git = {
         enable = true;
         settings = {
@@ -14,16 +14,28 @@
             };
         };
     };
-    
-    xdg.configFile."nvim".source = ./config/nvim;
-    
+
+    xdg.configFile."nvim".source = ../../config/nvim;
+
     home.packages = with pkgs; [
+        # Terminals
         wezterm
-        keepassxc
+
+        # Editors & dev tools
         neovim
         opencode
-        inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
-        inputs.herdr-src.packages.${pkgs.system}.default
-    ];
-  }
+        zed-editor
+        tree-sitter
+        ripgrep
+        fd
+        unzip
+        tree
+        gcc
+        gnumake
 
+        # Apps
+        keepassxc
+        inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+        inputs.herdr-src.packages.${pkgs.stdenv.hostPlatform.system}.default
+    ];
+}

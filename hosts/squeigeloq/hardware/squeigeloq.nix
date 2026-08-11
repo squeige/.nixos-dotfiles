@@ -6,7 +6,6 @@
   # ==========================================
   boot.kernelParams = [
     "resume=UUID=460bd9d4-638a-4c9f-ade5-4ffa74a4d4fb"
-    "mem_sleep_default=deep"
     "rtc_cmos.use_acpi_alarm=1"
     "acpi_backlight=native"
   ];
@@ -25,15 +24,16 @@
 
       HandleLidSwitch = "suspend-then-hibernate";
       HandleLidSwitchExternalPower = "lock";
-      # Inactivity trigger: suspends after 15 minutes of being away
-      IdleAction = "suspend";
+      # Inactivity trigger: suspend, then hibernate after HibernateDelaySec
+      IdleAction = "suspend-then-hibernate";
       IdleActionSec = "900";
     };
   };
 
   systemd.sleep.settings = {
     Sleep = {
-      HibernateDelaySec = "1800";
+      # Hibernate 10 minutes after entering suspend (s2idle drains battery)
+      HibernateDelaySec = "600";
     };
   };
 

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, herdr, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports = [
@@ -6,7 +6,9 @@
 
     # Reusable Hardware & System Modules
     ../../modules/hardware/audio.nix
-    
+    ../../modules/desktops
+    ../../modules/system/luigi.nix
+
     # Home Manager
     inputs.home-manager.nixosModules.home-manager
   ];
@@ -18,9 +20,11 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.luigi = import ../../home.nix;
+    users.luigi = {
+      imports = [ ../../modules/home/default.nix ];
+    };
     backupFileExtension = "backup";
-    extraSpecialArgs = { inherit inputs herdr; };
+    extraSpecialArgs = { inherit inputs; };
   };
 
   # Bootloader settings (EFI for Hyper-V Gen 2)
@@ -33,25 +37,20 @@
 
   # Time Zone & Display
   time.timeZone = "America/Costa_Rica";
-  services.xserver = {
-    enable = true;
-    windowManager.qtile.enable = true;
-  };
-  services.displayManager.ly.enable = true;
 
-  # User Account
-  users.users.luigi = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
+  mySystem.users.luigi.enable = true;
+
+  # Desktop environment (see modules/desktops/)
+  mySystem.desktops = {
+    qtile.enable = true;
+    display_ly.enable = true;
   };
 
-  # System Packages
+  # System Packages (rescue / essential only; user apps live in home-manager)
   environment.systemPackages = with pkgs; [
     vim
     wget
     curl
-    git
-    tree
   ];
 
   # Nix Configuration
