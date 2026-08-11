@@ -52,6 +52,14 @@
         ];
       };
 
+      # Host 2: Squeige Desktop
+      squeige = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./hosts/squeige/configuration.nix
+        ];
+      };
+
     };
   };
 }
