@@ -6,6 +6,7 @@
 
     ../../modules/hardware/audio.nix 
     ../../modules/hardware/lanzaboote.nix 
+    ../../modules/hardware/power.nix 
     ../../modules/system/bluetooth.nix 
 
    # ./hardware 

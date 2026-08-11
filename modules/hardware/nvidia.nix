@@ -13,8 +13,8 @@
     # Modesetting is required for almost all setups nowadays
     modesetting.enable = true;
 
-    # Power management (optional for desktops, but good to keep default/false unless troubleshooting sleep issues)
-    powerManagement.enable = false;
+    # Power management for reliable suspend/resume
+    powerManagement.enable = true;
     powerManagement.finegrained = false;
 
     # Use the proprietary NVIDIA open kernel modules (recommended for Turing/Ampere/Ada Lovelace cards like the RTX 3050)
