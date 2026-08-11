@@ -15,7 +15,9 @@
 
   hardware.nvidia = {
     modesetting.enable = true;
-    powerManagement.enable = true;
+    # s2idle-only laptop: nvidia-suspend/resume scripts (S3-era) crash the GSP on
+    # resume. Keep the GPU in D0 through suspend instead (NVreg_EnableS0ixPowerManagement=1).
+    powerManagement.enable = false;
     powerManagement.finegrained = false;
     open = false; # Proprietary driver is recommended for 30-series (Ampere) laptops/cards
     nvidiaSettings = true;
@@ -26,6 +28,9 @@
     options nvidia NVreg_TemporaryFilePath=/dev/shm
     options nvidia NVreg_EnableS0ixPowerManagement=1
     options nvidia NVreg_EnableMSI=1
+    # Disable GSP firmware: Xid 119 GSP-RPC-timeout-on-resume is a known 570+
+    # driver bug on Ampere s2idle laptops. Falls back to in-kernel RM path.
+    options nvidia NVreg_EnableGpuFirmware=0
   '';
 
   boot.kernelParams = [
