@@ -62,9 +62,10 @@
       STOP_CHARGE_THRESH_BAT0 = "80";
     };
   };
-      environment.systemPackages = with pkgs; [
-        brightnessctl
-       ];
+
+  environment.systemPackages = with pkgs; [
+    brightnessctl
+  ];
 }
 
 

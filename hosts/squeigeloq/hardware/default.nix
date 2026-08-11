@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./squeigeloq.nix
+    ./power.nix
     ./nvidialoq.nix
   ];
 }
