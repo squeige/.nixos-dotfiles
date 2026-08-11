@@ -1,93 +1,84 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }: 
 
-{
-  imports = [
-    ./hardware-configuration.nix
+{ 
+  imports = [ 
+    ./hardware-configuration.nix 
 
-    # Hardware Modules
-    ../../modules/hardware/audio.nix
-    ../../modules/hardware/lanzaboote.nix
-    ../../modules/system/openssh.nix
+    ../../modules/hardware/audio.nix 
+    ../../modules/hardware/lanzaboote.nix 
+    ../../modules/system/openssh.nix 
 
-    # Import Lenovo Loq specific hardware
-    ./hardware
+    ./hardware # Import all Lenovo Loq modules
 
-    ../../modules/desktops/niri.nix
+    ../../modules/desktops/niri.nix 
 
-    # System Modules
-    ../../modules/system/incus.nix
+    # System Modules 
+    ../../modules/system/incus.nix 
+   # ../../modules/desktops/x11.nix
+    ../../modules/desktops/display_ly.nix
 
-    # Home Manager NixOS Module (from flake input)
-    inputs.home-manager.nixosModules.home-manager
-    
-    # Import users
-    ../../modules/system/luigi.nix
+    # Home Manager NixOS Module (from flake input) 
+    inputs.home-manager.nixosModules.home-manager 
 
-  ];
+    # Import users 
+    ../../modules/system/luigi.nix 
 
-  # Home Manager inline setup
-  home-manager = {
-    useGlobalPkgs = true;
+  ]; 
+
+  # Home Manager inline setup 
+  home-manager = { 
+    useGlobalPkgs = true; 
     useUserPackages = true;
-    users.luigi = import ../../home.nix;
-    backupFileExtension = "backup";
-    extraSpecialArgs = { inherit inputs; };
-  };
+    users.luigi = import ../../home.nix; 
+    backupFileExtension = "backup"; 
+    extraSpecialArgs = { inherit inputs; }; 
+  }; 
 
-  # Bootloader settings
-  # boot.loader.systemd-boot.enable = true; # Managed with lanzaboote
-  # boot.loader.efi.canTouchEfiVariables = true; # Managed with lanzaboote
-  boot.loader.systemd-boot.configurationLimit = 12;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # Bootloader settings 
+  # boot.loader.systemd-boot.enable = true; # Managed with lanzaboote 
+  # boot.loader.efi.canTouchEfiVariables = true; # Managed with lanzaboote 
+  boot.loader.systemd-boot.configurationLimit = 12; 
+  boot.kernelPackages = pkgs.linuxPackages_latest; 
 
-  # Networking
-  networking.hostName = "squeigeloq";
-  networking.networkmanager.enable = true;
+  # Networking 
+  networking.hostName = "squeigeloq"; 
+  networking.networkmanager.enable = true; 
 
-  # Locale & Display
-  time.timeZone = "America/Costa_Rica";
-  services.xserver = {
-    enable = true;
-    autoRepeatDelay = 200;
-    autoRepeatInterval = 35;
-    windowManager.qtile.enable = true;
-  };
+  # Locale & Display # Section comment for time zone and display settings
+  time.timeZone = "America/Costa_Rica"; # Sets the local system time zone to Costa Rica
 
-  services.displayManager.ly.enable = true;
+  mySystem.users.luigi.enable = true; 
 
-  mySystem.users.luigi.enable = true;
-
-  # System packages & Fonts
-  programs.firefox.enable = true;
+  #programs.firefox.enable = true; 
   environment.systemPackages = with pkgs; [
-    vim
+    vim 
     wget
     curl
-    git
+    git 
     tree
-    gcc
-    gnumake
-    tree-sitter
-    ripgrep     # Needed for Telescope live_grep
-    fd          # Optional, speeds up Telescope file searches
-    unzip       # Needed by Mason to unpack language servers
-     ];
-
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.fira-code
-    nerd-fonts.hack
-    nerd-fonts.meslo-lg
-    nerd-fonts.symbols-only
+    gcc 
+    gnumake 
+    tree-sitter 
+    ripgrep     
+    fd         
+    unzip
   ];
 
-  # Allow unfree, like nvidia.
-  nixpkgs.config.allowUnfree = true;
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono 
+    nerd-fonts.fira-code 
+    nerd-fonts.hack 
+    nerd-fonts.meslo-lg 
+    nerd-fonts.symbols-only 
+  ]; 
 
-  console = {
-    font = "latarcyrheb-sun32";
-  };
+  # Allow unfree, like nvidia. 
+  nixpkgs.config.allowUnfree = true; 
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  system.stateVersion = "26.05";
-}
+  console = { 
+    font = "latarcyrheb-sun32"; 
+  }; 
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
+  system.stateVersion = "26.05"; 
+} 

@@ -21,7 +21,7 @@
   programs.xwayland.enable = true;
 
   environment.systemPackages = with pkgs; [
-    alacritty
+    wezterm
     fuzzel
     mako
     waybar
@@ -29,3 +29,4 @@
     xwayland-satellite
   ];
 }
+
