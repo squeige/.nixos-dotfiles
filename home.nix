@@ -23,6 +23,7 @@
         neovim
         opencode
         inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+        inputs.herdr-src.packages.${pkgs.system}.default
     ];
   }
 

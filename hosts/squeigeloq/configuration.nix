@@ -62,7 +62,17 @@
     ripgrep     
     fd         
     unzip
+    bluez
+    bluez-tools
+    zed-editor
   ];
+
+  # Enable Bluetooth hardware service
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+  services.blueman.enable = true;
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono 
