@@ -12,7 +12,7 @@
 │   │   └── hardware            # Host-specific hardware modules
 │   │       ├── default.nix
 │   │       ├── nvidialoq.nix
-│   │       └── squeigeloq.nix
+│   │       └── power.nix
 │   └── vm01                    # Hyper-V VM
 │       └── configuration.nix
 ├── modules
