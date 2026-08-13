@@ -5,6 +5,8 @@
     # Canonical github URL scheme
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
 
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -53,10 +55,10 @@
       };
 
       # Host 2: Squeige Desktop
-      squeige = nixpkgs.lib.nixosSystem {
+      squeigedesk = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = [
-          ./hosts/squeige/configuration.nix
+          ./hosts/squeigedesk/configuration.nix
         ];
       };
 

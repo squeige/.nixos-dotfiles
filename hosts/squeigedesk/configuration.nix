@@ -6,6 +6,7 @@
 
     ../../modules/hardware/audio.nix 
     ../../modules/hardware/lanzaboote.nix 
+    ../../modules/hardware/power.nix 
     ../../modules/system/bluetooth.nix 
 
    # ./hardware 
@@ -43,7 +44,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest; 
 
   # Networking 
-  networking.hostName = "squeige"; 
+  networking.hostName = "squeigedesk"; 
   networking.networkmanager.enable = true; 
 
   # Locale & Display # Section comment for time zone and display settings
