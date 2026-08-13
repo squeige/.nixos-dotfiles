@@ -13,7 +13,8 @@
     ../../modules/desktops
 
     # System Modules 
-    ../../modules/system/incus.nix 
+    ../../modules/system/incus.nix
+    ../../modules/system/netbird.nix
 
     # Home Manager NixOS Module (from flake input) 
     inputs.home-manager.nixosModules.home-manager 

@@ -15,9 +15,11 @@
 
   hardware.nvidia = {
     modesetting.enable = true;
-    # s2idle-only laptop: nvidia-suspend/resume scripts (S3-era) crash the GSP on
-    # resume. Keep the GPU in D0 through suspend instead (NVreg_EnableS0ixPowerManagement=1).
-    powerManagement.enable = false;
+    # nvidia-suspend/resume scripts were previously disabled because they crashed the
+    # GSP on resume; with NVreg_EnableGpuFirmware=0 (no GSP) they're safe and needed to
+    # avoid "Flip event timeout" + DRM EPERM after s2idle resume on this dGPU-only
+    # (Ryzen 7235HS) LOQ. NixOS adds NVreg_PreserveVideoMemoryAllocations=1 with this.
+    powerManagement.enable = true;
     powerManagement.finegrained = false;
     open = false; # Proprietary driver is recommended for 30-series (Ampere) laptops/cards
     nvidiaSettings = true;
@@ -34,7 +36,11 @@
   '';
 
   boot.kernelParams = [
-    "nvidia-drm.fbdev=1"
+    # fbdev=1 without nvidia-sleep.sh triggers "Flip event timeout" on suspend/resume
+    # (NVIDIA changelog 550.67). Dropped; the VT/ly still works via the EFI framebuffer.
+    # nvme_core.default_ps_max_latency_us=0: LOQ s2idle fix (CachyOS) - NVMe low-power
+    # state breaks resume on this machine family.
+    "nvme_core.default_ps_max_latency_us=0"
     "pcie_aspm=off"
     "acpi_enforce_resources=lax"
     "ec_no_wakeup=1"

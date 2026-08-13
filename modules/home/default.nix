@@ -25,7 +25,6 @@
         neovim
         opencode
         zed-editor
-        tree-sitter
         ripgrep
         fd
         unzip
