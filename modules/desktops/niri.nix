@@ -26,6 +26,13 @@ in
         pkgs.xdg-desktop-portal-gnome
         pkgs.xdg-desktop-portal-gtk
       ];
+      # xdg-desktop-portal-gnome >= 47 needs nautilus to render file choosers;
+      # not installing nautilus means native "Open Project" dialogs never appear.
+      # Use the GTK portal for FileChooser only; gnome portal stays default
+      # (needed for screencasting).
+      config.common = {
+        "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+      };
     };
 
     programs.xwayland.enable = true;
