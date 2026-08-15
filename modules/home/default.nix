@@ -23,9 +23,9 @@
 
         # Editors & dev tools
         neovim
+        discord
         inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.opencode
         zed-editor
-        tree-sitter
         ripgrep
         fd
         unzip

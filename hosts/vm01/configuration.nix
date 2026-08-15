@@ -8,6 +8,7 @@
     ../../modules/hardware/audio.nix
     ../../modules/desktops
     ../../modules/system/luigi.nix
+    ../../modules/system/netbird.nix
 
     # Home Manager
     inputs.home-manager.nixosModules.home-manager

@@ -16,6 +16,7 @@
     # System Modules 
     ../../modules/system/incus.nix 
     ../../modules/system/openssh.nix
+    ../../modules/system/netbird.nix
 
     # Home Manager NixOS Module (from flake input) 
     inputs.home-manager.nixosModules.home-manager 

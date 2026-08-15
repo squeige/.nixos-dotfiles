@@ -47,13 +47,15 @@ Modular NixOS flake configuration managed with [home-manager](https://github.com
     ├── hardware               # Shared hardware support
     │   ├── audio.nix
     │   ├── lanzaboote.nix     # Secure boot
-    │   └── nvidia.nix
+    │   ├── nvidia.nix
+    │   └── power.nix          # Shared power tuning
     ├── home                   # Home-manager (user-level apps & config)
     │   └── default.nix
     └── system                 # System services & users
         ├── bluetooth.nix
         ├── incus.nix
         ├── luigi.nix          # Primary user (gated behind mySystem.users.luigi.enable)
+        ├── netbird.nix        # NetBird mesh VPN
         └── openssh.nix
 ```
 

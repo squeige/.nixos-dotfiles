@@ -14,7 +14,7 @@
   boot.resumeDevice = "/dev/disk/by-uuid/460bd9d4-638a-4c9f-ade5-4ffa74a4d4fb";
 
   # Ensure native hardware ACPI modules are loaded early
-  boot.kernelModules = [ "ideapad_laptop" "lenovo_wmi" ];
+  boot.kernelModules = [ "ideapad_laptop" ];
   hardware.acpilight.enable = true;
 
   services.logind.settings = {
