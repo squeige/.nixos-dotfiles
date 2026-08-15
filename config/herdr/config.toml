@@ -1,0 +1,196 @@
+# herdr configuration — managed by home-manager.
+# The source of truth lives in the dotfiles repo at config/herdr/config.toml;
+# ~/.config/herdr/config.toml is a symlink into the nix store.
+# After editing here, rebuild, then: herdr server reload-config (no restart needed).
+
+onboarding = false
+
+[theme]
+# Built-in themes: catppuccin, terminal, tokyo-night, dracula, nord,
+#                  gruvbox, one-dark, solarized, kanagawa, rose-pine, vesper
+name = "catppuccin"
+
+# Follow the host terminal's light/dark appearance and auto-switch themes.
+auto_switch = false
+# dark_name = "catppuccin"
+# light_name = "catppuccin-latte"
+
+# Override individual color tokens on top of the base theme.
+# Accepts: hex (#rrggbb), named colors, rgb(r,g,b), or "reset".
+# [theme.custom]
+# sidebar_bg = "#181825"
+# panel_bg = "reset"
+# accent = "#f5c2e7"
+# red = "#ff6188"
+# green = "#a6e3a1"
+
+[terminal]
+# Executable for new interactive panes. Empty means $SHELL, then /bin/sh.
+default_shell = ""
+
+# "auto" (login shells on macOS, non-login elsewhere), "login", or "non_login".
+shell_mode = "auto"
+
+# CWD policy for new panes/tabs/workspaces: "follow", "home", "current", or a path.
+new_cwd = "follow"
+
+[update]
+# Update channel for background version checks and `herdr update`.
+channel = "stable"
+# Check herdr.dev for new versions and agent-detection manifests in the background.
+version_check = true
+manifest_check = true
+
+[keys]
+# Prefix key to enter prefix mode (default "ctrl+b"). Examples: ctrl+b, f12, esc.
+prefix = "ctrl+b"
+
+# Prefix-mode actions.
+help = "prefix+?"
+settings = "prefix+s"
+detach = "prefix+q"
+reload_config = "prefix+shift+r"
+workspace_picker = "prefix+w"
+goto = "prefix+g"
+new_workspace = "prefix+shift+n"
+new_worktree = "prefix+shift+g"
+rename_workspace = "prefix+shift+w"
+close_workspace = "prefix+shift+d"
+new_tab = "prefix+c"
+rename_tab = "prefix+shift+t"
+previous_tab = "prefix+p"
+next_tab = "prefix+n"
+switch_tab = "prefix+1..9"
+close_tab = "prefix+shift+x"
+rename_pane = "prefix+shift+p"
+edit_scrollback = "prefix+e"
+focus_pane_left = "prefix+h"
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+focus_pane_right = "prefix+l"
+cycle_pane_next = "prefix+tab"
+cycle_pane_previous = "prefix+shift+tab"
+split_vertical = "prefix+v"
+split_horizontal = "prefix+minus"
+close_pane = "prefix+x"
+zoom = "prefix+z"
+resize_mode = "prefix+r"
+toggle_sidebar = "prefix+b"
+
+# Navigate-mode movement (active while navigate mode is open; no prefix here).
+navigate_workspace_up = "up"
+navigate_workspace_down = "down"
+navigate_pane_left = "h"
+navigate_pane_down = "j"
+navigate_pane_up = "k"
+navigate_pane_right = "l"
+
+# Custom command keybindings. type = "shell" (detached), "pane" (temp pane), or
+# "popup" (session-modal). Width/height accept cells or percentages like "80%".
+# [[keys.command]]
+# key = "prefix+alt+g"
+# type = "popup"
+# command = "lazygit"
+# description = "run lazygit"
+# width = "80%"
+# height = "80%"
+
+# Legacy indexed shortcuts (still parsed, but prefer switch_tab / switch_workspace / focus_agent).
+# [keys.indexed]
+# tabs = ""
+# workspaces = ""
+# agents = ""
+
+[worktrees]
+# Root directory herdr uses for Git worktree checkouts from the sidebar.
+directory = "~/.herdr/worktrees"
+
+[ui]
+# Sidebar sizing and behavior.
+sidebar_width = 26
+sidebar_min_width = 18
+sidebar_max_width = 36
+sidebar_start_collapsed = false
+sidebar_collapsed_mode = "compact"
+mobile_width_threshold = 64
+
+# Mouse, cursor, and selection behavior.
+mouse_capture = true
+copy_on_select = true
+host_cursor = "auto"
+right_click_passthrough_modifier = ""
+redraw_on_focus_gained = true
+mouse_scroll_lines = 3
+
+# Confirmation prompts.
+confirm_close = true
+prompt_new_tab_name = true
+prompt_new_workspace_name = false
+
+# Pane borders and layout.
+pane_borders = true
+pane_outer_borders = true
+pane_scrollbars = true
+pane_gaps = true
+show_agent_labels_on_pane_borders = false
+hide_tab_bar_when_single_tab = false
+tab_bar_position = "top"
+
+# Title written to the outer terminal (shown in WM title/tab bars).
+window_title = "{hostname}: {workspace}"
+
+# Agent panel ordering: "spaces" or "priority".
+agent_panel_sort = "spaces"
+status_indicators = "dots"
+
+# Accent color for highlights, borders, and navigation UI.
+accent = "cyan"
+
+[ui.sidebar.agents]
+row_gap = 0
+rows = [["state_icon", "workspace", "tab"], ["agent"]]
+
+[ui.sidebar.spaces]
+row_gap = 0
+rows = [["state_icon", "workspace"], ["branch", "git_status"]]
+
+[ui.toast]
+# Notification popup delivery: "off", "herdr" (in-app), "terminal", or "system".
+delivery = "herdr"
+delay_seconds = 1
+
+[ui.toast.herdr]
+position = "bottom-right"
+
+[ui.toast.clipboard]
+enabled = true
+position = "bottom-center"
+
+# Play sounds when agents change state in background workspaces.
+[ui.sound]
+enabled = true
+# Custom mp3 files (relative paths resolve from this config's directory).
+# path = "sounds/notification.mp3"
+# done_path = "sounds/done.mp3"
+# request_path = "sounds/request.mp3"
+
+# Per-agent sound overrides: default | on | off. Droid is muted by default.
+# [ui.sound.agents]
+# droid = "off"
+
+[session]
+# Resume supported AI-agent panes into their native sessions after a restart.
+resume_agents_on_restore = true
+
+[remote]
+# herdr manages an SSH config with keepalive + connection reuse for `herdr --remote`.
+manage_ssh_config = true
+
+[experimental]
+allow_nested = false
+kitty_graphics = false
+pane_history = false
+
+[advanced]
+# Maximum scrollback buffer size in bytes retained per pane terminal.
+scrollback_limit_bytes = 10000000
