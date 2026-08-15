@@ -18,9 +18,10 @@
     xdg.configFile."nvim".source = ../../config/nvim;
 
     # Link just the config.toml file, NOT the whole ~/.config/herdr dir:
-    # herdr writes runtime files there itself (logs, sockets, session.json,
     # .plugins.lock) which must stay writable and non-version-controlled.
     xdg.configFile."herdr/config.toml".source = ../../config/herdr/config.toml;
+    # Link the niri config gile
+    xdg.configFile."niri/config/kdl".source = ../../config/niri/config.kdl
 
     home.packages = with pkgs; [
         # Terminals
