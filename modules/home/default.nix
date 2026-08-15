@@ -28,7 +28,6 @@
         zed-editor
         ripgrep
         fd
-        twitch
         unzip
         tree
         gcc
