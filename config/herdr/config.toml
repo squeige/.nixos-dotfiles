@@ -43,7 +43,7 @@ manifest_check = true
 
 [keys]
 # Prefix key to enter prefix mode (default "ctrl+b"). Examples: ctrl+b, f12, esc.
-prefix = "ctrl+b"
+prefix = "ctrl+a"
 
 # Prefix-mode actions.
 help = "prefix+?"
