@@ -9,6 +9,7 @@
     ../../modules/desktops
     ../../modules/system/luigi.nix
     ../../modules/system/netbird.nix
+    ../../modules/system/base.nix
 
     # Home Manager
     inputs.home-manager.nixosModules.home-manager
@@ -36,9 +37,6 @@
   networking.hostName = "vm01";
   networking.networkmanager.enable = true;
 
-  # Time Zone & Display
-  time.timeZone = "America/Costa_Rica";
-
   mySystem.users.luigi.enable = true;
 
   # Desktop environment (see modules/desktops/)
@@ -47,16 +45,8 @@
     display_ly.enable = true;
   };
 
-  # System Packages (rescue / essential only; user apps live in home-manager)
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-    curl
-  ];
-
   # Nix Configuration
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  nixpkgs.config.allowUnfree = true;
+  boot.loader.systemd-boot.configurationLimit = 12;
 
   system.stateVersion = "26.05";
 }

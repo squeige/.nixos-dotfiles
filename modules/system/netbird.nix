@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   # NetBird VPN daemon (system service, root tunnel)

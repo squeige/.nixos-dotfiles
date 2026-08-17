@@ -1,5 +1,5 @@
 {
-  description = "NixOS Flake configuration for squeigeloq and vm01";
+  description = "NixOS Flake configuration for squeigedesk, squeigeloq, and vm01";
 
   inputs = {
     # Canonical github URL scheme
@@ -54,7 +54,7 @@
         ];
       };
 
-      # Host 2: Squeige Desktop
+      # Host 3: Squeige Desktop
       squeigedesk = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = [

@@ -30,6 +30,7 @@
   environment.systemPackages = with pkgs; [
     pavucontrol # Graphical volume control mixer
     pamixer     # CLI volume control
+    crosspipe   # Wayland-native PipeWire patchbay
     wireplumber # PipeWire session manager tool
   ];
 }

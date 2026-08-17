@@ -16,7 +16,8 @@
     # System Modules 
     ../../modules/system/incus.nix 
     ../../modules/system/openssh.nix
-    ../../modules/system/netbird.nix
+    ../../modules/system/netbird.nix 
+    ../../modules/system/base.nix
 
     # Home Manager NixOS Module (from flake input) 
     inputs.home-manager.nixosModules.home-manager 
@@ -48,9 +49,6 @@
   networking.hostName = "squeigedesk"; 
   networking.networkmanager.enable = true; 
 
-  # Locale & Display # Section comment for time zone and display settings
-  time.timeZone = "America/Costa_Rica"; # Sets the local system time zone to Costa Rica
-
   mySystem.users.luigi.enable = true; 
 
   # Desktop environment (see modules/desktops/)
@@ -58,14 +56,6 @@
     niri.enable = true;
     display_ly.enable = true;
   };
-
-  #programs.firefox.enable = true; 
-  environment.systemPackages = with pkgs; [
-    # Rescue / essential tools (keep minimal; user apps live in home-manager)
-    vim 
-    wget
-    curl
-  ];
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono 
@@ -75,13 +65,9 @@
     nerd-fonts.symbols-only 
   ]; 
 
-  # Allow unfree, like nvidia. 
-  nixpkgs.config.allowUnfree = true; 
-
   console = { 
     font = "latarcyrheb-sun32"; 
   }; 
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
   system.stateVersion = "26.05"; 
 } 
