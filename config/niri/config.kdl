@@ -76,6 +76,12 @@ output "HDMI-A-1" {
     position x=0 y=0
 }
 
+// Laptop internal panel (squeigeloq). Output blocks for connectors that
+// aren't present are ignored, so this is a no-op on the desktop.
+output "eDP-1" {
+    scale 1.2
+}
+
 output "HDMI-A-2" {
     // Top-right: HP 27er
     position x=1920 y=0
