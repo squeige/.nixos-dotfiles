@@ -255,6 +255,10 @@ layout {
 // This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-at-startup "waybar"
 
+// Wallpaper: Tchelitchew's "Hide-and-Seek" (MoMA), symlinked into
+// ~/.config/niri/ by home-manager from the dotfiles repo.
+spawn-at-startup "swaybg" "-i" "/home/luigi/.config/niri/wallpaper.jpg" "-m" "fill"
+
 // Suspend after 15 minutes of inactivity.
 spawn-at-startup "swayidle" "-w" "timeout" "900" "systemctl suspend"
 

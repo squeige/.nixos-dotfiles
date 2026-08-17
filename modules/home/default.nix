@@ -22,6 +22,9 @@
     xdg.configFile."herdr/config.toml".source = ../../config/herdr/config.toml;
     # Link the niri config file
     xdg.configFile."niri/config.kdl".source = ../../config/niri/config.kdl;
+    # Wallpaper referenced by swaybg in the niri config; gives it a stable
+    # runtime path (~/.config/niri/wallpaper.jpg) on every host.
+    xdg.configFile."niri/wallpaper.jpg".source = ../../config/niri/wallpaper.jpg;
 
     home.packages = with pkgs; [
         # Terminals
