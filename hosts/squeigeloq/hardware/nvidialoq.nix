@@ -49,7 +49,11 @@
     "amd_iommu=pt"
   ];
 
-  boot.initrd.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+  # Deliberately NOT in boot.initrd.kernelModules: with hibernation, the driver
+  # must not load before the hibernated image resumes — an initrd-loaded driver
+  # re-initializes the GPU and clobbers the preserved VRAM (garbled screen on
+  # resume). Boot console/ly use the EFI framebuffer until the modules load.
+  boot.initrd.kernelModules = [ ];
 
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "nvidia";

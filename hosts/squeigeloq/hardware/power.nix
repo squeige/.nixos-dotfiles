@@ -22,11 +22,11 @@
       # Add this line to map power button press to suspend
       HandlePowerKey = "suspend";
 
-      HandleLidSwitch = "suspend";
-      HandleLidSwitchExternalPower = "suspend";
-      # Inactivity trigger: suspend after IdleActionSec (niri doesn't report the
-      # idle hint, so this stays dormant; kept consistent with the lid action)
-      IdleAction = "suspend";
+      HandleLidSwitch = "suspend-then-hibernate";
+      HandleLidSwitchExternalPower = "suspend-then-hibernate";
+      # Inactivity trigger: suspend, then hibernate after HibernateDelaySec
+      # (niri doesn't report the idle hint, so this stays dormant)
+      IdleAction = "suspend-then-hibernate";
       IdleActionSec = "900";
     };
   };
