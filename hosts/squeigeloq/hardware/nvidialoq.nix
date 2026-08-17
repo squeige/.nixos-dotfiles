@@ -15,29 +15,31 @@
 
   hardware.nvidia = {
     modesetting.enable = true;
-    # nvidia-suspend/resume scripts were previously disabled because they crashed the
-    # GSP on resume; with NVreg_EnableGpuFirmware=0 (no GSP) they're safe and needed to
-    # avoid "Flip event timeout" + DRM EPERM after s2idle resume on this dGPU-only
-    # (Ryzen 7235HS) LOQ. NixOS adds NVreg_PreserveVideoMemoryAllocations=1 with this.
+    # 595+ on the open kernel modules handles suspend/hibernate (including
+    # suspend-then-hibernate) via in-kernel suspend notifiers. The old
+    # nvidia-sleep.sh /proc interface was deprecated upstream and failed both
+    # ways on this machine (Aug 2026): -5 EIO loop on suspend-then-hibernate
+    # (nixpkgs#440422 gap) and an intermittent hard hang on plain suspend.
+    # kernelSuspendNotifier is the default for open+595; set explicitly for clarity.
     powerManagement.enable = true;
+    powerManagement.kernelSuspendNotifier = true;
     powerManagement.finegrained = false;
-    open = false; # Proprietary driver is recommended for 30-series (Ampere) laptops/cards
+    # Open kernel modules (GA107 is supported). They require GSP firmware, so the
+    # old NVreg_EnableGpuFirmware=0 workaround (for the 570-era Xid 119 resume
+    # timeout) is gone — if Xid 119 reappears on resume, revert this to false.
+    open = true;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   boot.extraModprobeConfig = ''
-    options nvidia NVreg_TemporaryFilePath=/dev/shm
+    # VRAM backing store for hibernate; NVIDIA recommends non-tmpfs (/var/tmp is btrfs)
+    options nvidia NVreg_TemporaryFilePath=/var/tmp
     options nvidia NVreg_EnableS0ixPowerManagement=1
     options nvidia NVreg_EnableMSI=1
-    # Disable GSP firmware: Xid 119 GSP-RPC-timeout-on-resume is a known 570+
-    # driver bug on Ampere s2idle laptops. Falls back to in-kernel RM path.
-    options nvidia NVreg_EnableGpuFirmware=0
   '';
 
   boot.kernelParams = [
-    # fbdev=1 without nvidia-sleep.sh triggers "Flip event timeout" on suspend/resume
-    # (NVIDIA changelog 550.67). Dropped; the VT/ly still works via the EFI framebuffer.
     # nvme_core.default_ps_max_latency_us=0: LOQ s2idle fix (CachyOS) - NVMe low-power
     # state breaks resume on this machine family.
     "nvme_core.default_ps_max_latency_us=0"
