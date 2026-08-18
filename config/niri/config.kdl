@@ -95,6 +95,7 @@ output "HDMI-A-2" {
 
 output "DP-2" {
     // Bottom-center: Kamvas 22plus tablet
+    off
     position x=800 y=900
     scale 1.2
 }
