@@ -46,5 +46,10 @@
         keepassxc
         inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
         inputs.herdr-src.packages.${pkgs.stdenv.hostPlatform.system}.default
+
+        # Media
+        mpv
+        celluloid
+        playerctl
     ];
 }
