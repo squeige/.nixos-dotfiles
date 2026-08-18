@@ -74,22 +74,25 @@ input {
 output "HDMI-A-1" {
     // Top-left: Samsung C27F390
     position x=0 y=0
+    scale 1.2
 }
 
 // Laptop internal panel (squeigeloq). Output blocks for connectors that
 // aren't present are ignored, so this is a no-op on the desktop.
 output "eDP-1" {
-    scale 1.25
+    scale 1.2
 }
 
 output "HDMI-A-2" {
     // Top-right: HP 27er
     position x=1920 y=0
+    scale 1.2
 }
 
 output "DP-2" {
     // Bottom-center: Kamvas 22plus tablet
     position x=960 y=1080
+    scale 1.2
 }
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
