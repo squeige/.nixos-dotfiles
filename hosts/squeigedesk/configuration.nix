@@ -11,6 +11,7 @@
 
    # ./hardware 
     ../../modules/hardware/nvidia.nix
+    ../../modules/hardware/opentabletdriver.nix
     ../../modules/desktops
 
     # System Modules 
@@ -50,6 +51,8 @@
   networking.networkmanager.enable = true; 
 
   mySystem.users.luigi.enable = true; 
+
+  mySystem.hardware.opentabletdriver.enable = true;
 
   # Desktop environment (see modules/desktops/)
   mySystem.desktops = {

@@ -62,6 +62,10 @@ input {
     // Focus windows and outputs automatically when moving the mouse into them.
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
     // focus-follows-mouse max-scroll-amount="0%"
+
+    tablet {
+        map-to-output "DP-2"
+    }
 }
 
 // You can configure outputs by their name, which you can find
@@ -85,13 +89,13 @@ output "eDP-1" {
 
 output "HDMI-A-2" {
     // Top-right: HP 27er
-    position x=1920 y=0
+    position x=1600 y=0
     scale 1.2
 }
 
 output "DP-2" {
     // Bottom-center: Kamvas 22plus tablet
-    position x=960 y=1080
+    position x=800 y=900
     scale 1.2
 }
 // Settings that influence how windows are positioned and sized.

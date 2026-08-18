@@ -19,6 +19,11 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
+  # Disable dithering — prevents red sparkle artifacts on the Huion pen display
+  services.xserver.deviceSection = ''
+    Option "FlatPanelProperties" "Dithering = Disabled"
+  '';
+
   # Force Wayland/EGL to bind correctly to NVIDIA's GBM backend
   environment.sessionVariables = {
     GBM_BACKEND = "nvidia-drm";
