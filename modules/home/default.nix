@@ -19,6 +19,7 @@
       config.lib.file.mkOutOfStoreSymlink "/home/luigi/.nixos-dotfiles/config/nvim";
     
     xdg.configFile."waybar".source = ../../config/waybar;
+    xdg.configFile."wezterm".source = ../../config/wezterm;
 
     # Link just the config.toml file, NOT the whole ~/.config/herdr dir:
     # .plugins.lock) which must stay writable and non-version-controlled.
@@ -44,6 +45,7 @@
         tree
         gcc
         gnumake
+        python3
 
         # Apps
         keepassxc
