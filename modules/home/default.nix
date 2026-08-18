@@ -15,7 +15,10 @@
         };
     };
 
-    xdg.configFile."nvim".source = ../../config/nvim;
+    xdg.configFile."nvim".source = 
+      config.lib.file.mkOutOfStoreSymlink "/home/luigi/.nixos-dotfiles/config/nvim";
+    
+    xdg.configFile."waybar".source = ../../config/waybar;
 
     # Link just the config.toml file, NOT the whole ~/.config/herdr dir:
     # .plugins.lock) which must stay writable and non-version-controlled.

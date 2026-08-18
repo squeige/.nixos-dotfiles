@@ -79,7 +79,7 @@ output "HDMI-A-1" {
 // Laptop internal panel (squeigeloq). Output blocks for connectors that
 // aren't present are ignored, so this is a no-op on the desktop.
 output "eDP-1" {
-    scale 1
+    scale 1.25
 }
 
 output "HDMI-A-2" {
@@ -96,7 +96,7 @@ output "DP-2" {
 // https://niri-wm.github.io/niri/Configuration:-Layout
 layout {
     // Set gaps around windows in logical pixels.
-    gaps 10
+    gaps 6 
 
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
@@ -144,7 +144,7 @@ layout {
         // off
 
         // How many logical pixels the ring extends out from the windows.
-        width 4
+        width 3
 
         // Colors can be set in a variety of ways:
         // - CSS named colors: "red"

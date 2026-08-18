@@ -1,0 +1,200 @@
+// -*- mode: jsonc -*-
+{
+    "layer": "top",
+    "position": "top",
+    "height": 42,
+    "spacing": 4,
+    "margin-top": 0,
+    "margin-left": 0,
+    "margin-right": 0,
+
+    "modules-left": [
+        "niri/workspaces",
+        "custom/updates"
+    ],
+    "modules-center": [
+        "niri/window"
+    ],
+    "modules-right": [
+        "custom/media",
+        "pulseaudio",
+        "network",
+        "cpu",
+        "memory",
+        "temperature",
+        "backlight",
+        "battery",
+        "clock",
+        "tray",
+        "idle_inhibitor",
+        "custom/power"
+    ],
+
+    "niri/workspaces": {
+        "format": "{icon}",
+        "format-window-separator": " ",
+        "window-rewrite-default": "\u0066\u006f\u006c\u0064\u0065\u0072",
+        "window-rewrite": {
+            "app_id<firefox>": "\uf269",
+            "app_id<google-chrome>": "\uf268",
+            "app_id<chromium>": "\uf268",
+            "app_id<dolphin>": "\uf07b",
+            "app_id<org.gnome.Nautilus>": "\uf07b",
+            "app_id<thunar>": "\uf07b",
+            "app_id<foot>": "\uf120",
+            "app_id<alacritty>": "\uf120",
+            "app_id<kitty>": "\uf120",
+            "app_id<org.telegram.desktop>": "\uf1d8",
+            "app_id<discord>": "\uf392",
+            "class<spotify>": "\uf1bc"
+        },
+        "format-icons": {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
+            "active": "\uf111",
+            "default": "\uf10c"
+        }
+    },
+
+    "custom/media": {
+        "format": "{icon} {text}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+            "spotify": "\uf1bc",
+            "default": "\uf001"
+        },
+        "escape": true,
+        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null"
+    },
+
+    "custom/updates": {
+        "format": "{}",
+        "tooltip": true,
+        "exec": "$HOME/.config/waybar/updates.sh",
+        "return-type": "text",
+        "interval": 3600,
+        "exec-if": "$HOME/.config/waybar/updates.sh --check"
+    },
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "\uf06e",
+            "deactivated": "\uf070"
+        },
+        "min-length": 6,
+        "tooltip": true
+    },
+
+
+    "tray": {
+        "icon-size": 18,
+        "spacing": 10
+    },
+
+    "clock": {
+        "format": "\uf017 {:%I:%M %p}",
+        "format-alt": "\uf017 {:%Y-%m-%d %I:%M:%S %p}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "year",
+            "mode-mon-col": 3,
+            "weeks-pos": "right",
+            "on-scroll": 1,
+            "format": {
+                "months": "<span color='#ffead3'><b>{}</b></span>",
+                "days": "<span color='#ecc6d9'><b>{}</b></span>",
+                "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+                "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+            }
+        }
+    },
+
+    "cpu": {
+        "format": "{usage}% \uf2db",
+        "tooltip": false,
+        "interval": 5
+    },
+
+    "memory": {
+        "format": "{percentage}% \uf233",
+        "tooltip-format": "RAM: {used:0.1f}G / {total:0.1f}G"
+    },
+
+    "temperature": {
+        "critical-threshold": 80,
+        "format": "{temperatureC}\u00b0C {icon}",
+        "format-critical": "{temperatureC}\u00b0C \uf0e4",
+        "format-icons": ["\uf2cb", "\uf2c9", "\uf2c7"]
+    },
+
+    "backlight": {
+        "format": "{percent}% {icon}",
+        "format-icons": ["\u2581", "\u2582", "\u2583", "\u2584", "\u2585", "\u2586", "\u2587", "\u2588", "\u2588"],
+        "min-brightness": 1
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-full": "{capacity}% \uf240",
+        "format-charging": "{capacity}% \ud7c3\udf0292",
+        "format-plugged": "{capacity}% \uf1e6",
+        "format-alt": "{time} {icon}",
+        "format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"]
+    },
+
+    "network": {
+        "format-wifi": "{essid} ({signalStrength}%) \uf1eb",
+        "format-ethernet": "{ipaddr}/{cidr} \ud7c3\udf0ad",
+        "tooltip-format": "{ifname} via {gwaddr} \ud7c3\udf0ad",
+        "format-linked": "{ifname} (No IP) \ud7c3\udf0ad",
+        "format-disconnected": "Disconnected \u26a0",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+
+    "pulseaudio": {
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": "\ud7c3\udf026c {icon} {format_source}",
+        "format-muted": "\ud7c3\udf026c {format_source}",
+        "format-source": "{volume}% \uf130",
+        "format-source-muted": "\uf131",
+        "format-icons": {
+            "headphone": "\uf025",
+            "hands-free": "\ud7c3\udf030b",
+            "headset": "\ud7c3\udf030b",
+            "phone": "\uf095",
+            "portable": "\uf095",
+            "car": "\uf1b9",
+            "default": ["\uf026", "\uf027", "\uf028"]
+        },
+        "scroll-step": 5,
+        "on-click": "pavucontrol"
+    },
+
+    "custom/power": {
+        "format": "\u23fb ",
+        "tooltip": false,
+        "menu": "on-click",
+        "menu-file": "$HOME/.config/waybar/power_menu.xml",
+        "menu-actions": {
+            "shutdown": "shutdown now",
+            "reboot": "reboot",
+            "suspend": "systemctl suspend",
+            "hibernate": "systemctl hibernate"
+        }
+    }
+}
