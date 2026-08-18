@@ -56,6 +56,6 @@
         mpv
         celluloid
         playerctl
-        krita
+        
     ];
 }

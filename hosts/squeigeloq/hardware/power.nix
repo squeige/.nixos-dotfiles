@@ -22,20 +22,20 @@
       # Add this line to map power button press to suspend
       HandlePowerKey = "suspend";
 
-      HandleLidSwitch = "suspend-then-hibernate";
-      HandleLidSwitchExternalPower = "suspend-then-hibernate";
-      # Inactivity trigger: suspend, then hibernate after HibernateDelaySec
-      # (niri doesn't report the idle hint, so this stays dormant)
-      IdleAction = "suspend-then-hibernate";
+      # Hibernate directly on lid close: suspend-then-hibernate crashed the
+      # NVIDIA driver (595) during the s2idle→hibernate handoff (Aug 2026), so
+      # skip suspend entirely and write RAM to the swap file.
+      HandleLidSwitch = "hibernate";
+      HandleLidSwitchExternalPower = "hibernate";
+      # Inactivity trigger: hibernate (niri doesn't report the idle hint, so
+      # this stays dormant)
+      IdleAction = "hibernate";
       IdleActionSec = "900";
     };
   };
 
   systemd.sleep.settings = {
-    Sleep = {
-      # Hibernate 10 minutes after entering suspend (s2idle drains battery)
-      HibernateDelaySec = "600";
-    };
+    Sleep = { };
   };
 
   # ==========================================

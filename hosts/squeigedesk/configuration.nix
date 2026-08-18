@@ -12,6 +12,7 @@
    # ./hardware 
     ../../modules/hardware/nvidia.nix
     ../../modules/hardware/opentabletdriver.nix
+    ../../modules/home/krita.nix
     ../../modules/desktops
 
     # System Modules 
@@ -53,6 +54,8 @@
   mySystem.users.luigi.enable = true; 
 
   mySystem.hardware.opentabletdriver.enable = true;
+
+  mySystem.home.krita.enable = true;
 
   # Desktop environment (see modules/desktops/)
   mySystem.desktops = {
