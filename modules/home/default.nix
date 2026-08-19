@@ -17,6 +17,9 @@
 
     xdg.configFile."nvim".source = 
       config.lib.file.mkOutOfStoreSymlink "/home/luigi/.nixos-dotfiles/config/nvim";
+
+    xdg.configFile."opencode".source = 
+      config.lib.file.mkOutOfStoreSymlink "/home/luigi/.nixos-dotfiles/config/opencode";
     
     xdg.configFile."waybar".source = ../../config/waybar;
     xdg.configFile."wezterm".source = ../../config/wezterm;
