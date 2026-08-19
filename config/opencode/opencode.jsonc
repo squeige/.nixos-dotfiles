@@ -1,4 +1,18 @@
 {
-  "$schema": "https://opencode.ai/config.json"
-  "formatter": true
+  "$schema": "https://opencode.ai/config.json",
+  "lsp": true,
+  "formatter": {
+    "prettier": {
+      "command": ["prettier", "--write", "$FILE"],
+      "extensions": [".js", ".jsx", ".ts", ".tsx", ".html", ".css", ".json", ".md"]
+    },
+    "ruff": {
+      "command": ["ruff", "format", "$FILE"],
+      "extensions": [".py"]
+    },
+    "gofmt": {
+      "command": ["gofmt", "-w", "$FILE"],
+      "extensions": [".go"]
+    }
+  }
 }

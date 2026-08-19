@@ -41,6 +41,10 @@
         prettier
         go
         ruff
+        # LSP
+        pyright
+        typescript-language-server
+
 
         # Editors & dev tools
         neovim
