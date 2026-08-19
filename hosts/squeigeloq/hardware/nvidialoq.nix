@@ -37,6 +37,10 @@
     options nvidia NVreg_TemporaryFilePath=/var/tmp
     options nvidia NVreg_EnableS0ixPowerManagement=1
     options nvidia NVreg_EnableMSI=1
+    # Disable GC6 runtime PM to avoid GSP-RPC heartbeat timeout on LOQ
+    # (NVIDIA/open-gpu-kernel-modules#1136). GC6 exit kills the GSP heartbeat
+    # counter, causing display death + Xid 154. Costs ~2-3 W extra idle power.
+    options nvidia NVreg_DynamicPowerManagement=0x00
   '';
 
   boot.kernelParams = [

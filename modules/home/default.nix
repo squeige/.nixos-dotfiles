@@ -56,6 +56,10 @@
         mpv
         celluloid
         playerctl
-        
+        thunar
+        tumbler
+        xfce.thunar-volman
+        xfce.thunar-archive-plugin
+        gvfs
     ];
 }
