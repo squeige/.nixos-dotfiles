@@ -36,6 +36,11 @@
     home.packages = with pkgs; [
         # Terminals
         wezterm
+        
+        # Formatters
+        prettier
+        go
+        ruff
 
         # Editors & dev tools
         neovim
@@ -61,8 +66,8 @@
         playerctl
         thunar
         tumbler
-        xfce.thunar-volman
-        xfce.thunar-archive-plugin
+        thunar-volman
+        thunar-archive-plugin
         gvfs
     ];
 }
